@@ -34,14 +34,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // init layout
         setContentView(R.layout.activity_main);
+        // init save button and time textview
         mShowTimeBtn = (Button) findViewById(R.id.btn_showTime);
         mShowTimeTv = (TextView) findViewById(R.id.tv_show_time);
 
+        //set onclick listener on save button
         mShowTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mShowTimeTv.setText(timeService.getTime());
+                mShowTimeTv.setText(timeService.getTime()); // set current time
             }
         });
     }
@@ -50,13 +53,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Intent intent = new Intent(this, TimeService.class);
-        this.bindService(intent, connection, BIND_AUTO_CREATE);
-
+        this.bindService(intent, connection, BIND_AUTO_CREATE); // bind TimeService
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        this.unbindService(connection);
+        this.unbindService(connection); // unbind TimeService
     }
 }
